@@ -3,3 +3,5 @@ test-sth.py
 client/test-client.py
 client/*.jpg
 server/app/__pycache__/
+client/datasets/
+client/__pycache__/

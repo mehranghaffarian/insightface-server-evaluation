@@ -16,7 +16,7 @@ models = {
 
 for name, model in models.items():
     logger.info(f"Preparing model: {name}")
-    model.prepare(ctx_id=0)  # GPU
+    model.prepare(ctx_id=-1)  # GPU if possible
     logger.info(f"{name} loaded successfully")
 
 logger.info("All models loaded.")
@@ -25,7 +25,8 @@ logger.info("All models loaded.")
 def get_embedding(model, image):
     faces = model.get(image)
     if len(faces) == 0:
-        raise ValueError("No face detected")
+        return None
+
     return faces[0].embedding
 
 def verify_faces_from_bytes(img1_bytes, img2_bytes, model_name):
@@ -44,5 +45,8 @@ def verify_faces_from_bytes(img1_bytes, img2_bytes, model_name):
     emb1 = get_embedding(model, img1)
     emb2 = get_embedding(model, img2)
 
+    if emb1 is None or emb2 is None:
+        return 0.0
+    
     similarity = compute_similarity(emb1, emb2)
     return float(similarity)
