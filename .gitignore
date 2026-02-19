@@ -1,0 +1,4 @@
+server/venv/
+test-sth.py
+client/test-client.py
+client/*.jpg
