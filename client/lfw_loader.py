@@ -4,8 +4,6 @@ import os
 def load_lfw(dataset_dir, pairs_file):
     pairs = []
 
-    print(dataset_dir)
-    print(pairs_file)
 
     with open(pairs_file, "r") as f:
         lines = f.readlines()
@@ -13,8 +11,6 @@ def load_lfw(dataset_dir, pairs_file):
     for line in lines[1:]:
         parts = line.strip().split(",")
         parts = [p for p in parts if p != ""]
-
-        print(parts)
 
         if len(parts) == 3:
             # Same person

@@ -108,18 +108,18 @@ def evaluate(dataset_name, dataset_dir, pairs_file, model_name, threshold=0.4):
 
 
 if __name__ == "__main__":
-    # evaluate(
-    # dataset_name="lfw",
-    # dataset_dir="datasets/lfw/lfw-deepfunneled/lfw-deepfunneled",
-    # pairs_file="datasets/lfw/pairs.csv",
-    # model_name="buffalo_l",
-    # )
     evaluate(
-    dataset_name="calfw",
-    dataset_dir="datasets/calfw/images&landmarks/images&landmarks/images",
-    pairs_file="datasets/calfw/pairs_CALFW.txt",
+    dataset_name="lfw",
+    dataset_dir="datasets/lfw/lfw-deepfunneled/lfw-deepfunneled",
+    pairs_file="datasets/lfw/pairs.csv",
     model_name="buffalo_l",
     )
+    # evaluate(
+    # dataset_name="calfw",
+    # dataset_dir="datasets/calfw/images&landmarks/images&landmarks/images",
+    # pairs_file="datasets/calfw/pairs_CALFW.txt",
+    # model_name="buffalo_l",
+    # )
     # evaluate(
     # dataset_name="cplfw",
     # dataset_dir="datasets/cplfw/images",
