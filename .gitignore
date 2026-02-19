@@ -2,3 +2,4 @@ server/venv/
 test-sth.py
 client/test-client.py
 client/*.jpg
+server/app/__pycache__/
