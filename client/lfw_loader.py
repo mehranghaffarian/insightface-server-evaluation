@@ -2,6 +2,25 @@ import os
 
 
 def load_lfw(dataset_dir, pairs_file):
+    """
+    Loads LFW dataset verification pairs.
+
+    Each line in the pairs file defines either a same-person pair
+    (3 columns) or a different-person pair (4 columns).
+
+    Parameters
+    ----------
+    dataset_dir : str
+        Root folder containing LFW images organized by person.
+    pairs_file : str
+        CSV file specifying the verification pairs.
+
+    Returns
+    -------
+    list of tuples
+        List of (image1_path, image2_path, label) where label is
+        1 for same person, 0 for different persons.
+    """
     pairs = []
 
 

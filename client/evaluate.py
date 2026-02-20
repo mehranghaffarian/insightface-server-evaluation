@@ -15,6 +15,34 @@ import json
 import os
 
 def save_results(dataset_name, model_name, threshold, accuracy, fmr, fnmr, total_time, count, output_file="results.json"):
+    """
+    Saves evaluation results to a JSON file.
+
+    Parameters
+    ----------
+    dataset_name : str
+        Name of the evaluated dataset.
+    model_name : str
+        Model used for verification.
+    threshold : float
+        Similarity threshold used for classification.
+    accuracy : float
+        Overall verification accuracy.
+    fmr : float
+        False Match Rate.
+    fnmr : float
+        False Non-Match Rate.
+    total_time : float
+        Total evaluation runtime in seconds.
+    count : int
+        Number of evaluated pairs.
+    output_file : str
+        JSON file where results are stored.
+
+    Notes
+    -----
+    Appends results if the file already exists.
+    """
     total_time_per_pair = total_time / count
 
     result = {
@@ -42,6 +70,23 @@ def save_results(dataset_name, model_name, threshold, accuracy, fmr, fnmr, total
         json.dump(all_results, f, indent=4)
 
 def load_dataset(dataset_name, dataset_dir, pairs_file):
+    """
+    Loads verification pairs for the selected dataset.
+
+    Parameters
+    ----------
+    dataset_name : str
+        Dataset identifier ("lfw", "cplfw", "calfw").
+    dataset_dir : str
+        Root directory containing images.
+    pairs_file : str
+        Path to the dataset pairs file.
+
+    Returns
+    -------
+    list
+        List of tuples (image1_path, image2_path, label).
+    """
     if dataset_name.lower() == "lfw":
         return load_lfw(dataset_dir, pairs_file)
 
@@ -56,6 +101,34 @@ def load_dataset(dataset_name, dataset_dir, pairs_file):
 
 
 def evaluate(dataset_name, dataset_dir, pairs_file, model_name, threshold=0.4):
+    """
+    Evaluates a face verification model on a dataset.
+
+    The function:
+        1. Loads dataset pairs.
+        2. Sends image pairs to the verification API.
+        3. Collects similarity scores.
+        4. Computes Accuracy, FMR, and FNMR.
+        5. Saves results to JSON.
+
+    Parameters
+    ----------
+    dataset_name : str
+        Dataset identifier.
+    dataset_dir : str
+        Directory containing images.
+    pairs_file : str
+        Path to pairs definition file.
+    model_name : str
+        Model used for verification.
+    threshold : float
+        Similarity threshold for classification.
+
+    Returns
+    -------
+    tuple
+        (accuracy, fmr, fnmr)
+    """
     print(f"\nEvaluating {model_name} on {dataset_name}...")
     pairs = load_dataset(dataset_name, dataset_dir, pairs_file)
 

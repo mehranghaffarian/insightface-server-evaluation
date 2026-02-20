@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-import base64
 import logging
 from insightface.app import FaceAnalysis
 from app.utils import compute_similarity
@@ -23,6 +22,22 @@ logger.info("All models loaded.")
 
 
 def get_embedding(model, image):
+    """
+    Extracts a face embedding from an input image.
+
+    Parameters
+    ----------
+    model : FaceAnalysis
+        Initialized InsightFace model.
+    image : numpy.ndarray
+        Input image in OpenCV format.
+
+    Returns
+    -------
+    numpy.ndarray or None
+        Face embedding vector if a face is detected,
+        otherwise None.
+    """
     faces = model.get(image)
     if len(faces) == 0:
         return None
@@ -30,6 +45,27 @@ def get_embedding(model, image):
     return faces[0].embedding
 
 def verify_faces_from_bytes(img1_bytes, img2_bytes, model_name):
+    """
+    Verifies two face images using the selected model.
+
+    The function decodes image bytes, extracts embeddings,
+    and computes cosine similarity between them.
+
+    Parameters
+    ----------
+    img1_bytes : bytes
+        First image file as bytes.
+    img2_bytes : bytes
+        Second image file as bytes.
+    model_name : str
+        Model identifier ("buffalo_s" or "buffalo_l").
+
+    Returns
+    -------
+    float
+        Cosine similarity score. Returns 0.0 if a face
+        is not detected in either image.
+    """
     if model_name not in models:
         raise ValueError(f"Model {model_name} not available")
 

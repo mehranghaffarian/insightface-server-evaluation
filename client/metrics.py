@@ -1,6 +1,26 @@
 import numpy as np
 
 def compute_metrics(similarities, labels, threshold):
+    """
+    Computes verification metrics for a set of predictions.
+
+    Parameters
+    ----------
+    similarities : array-like
+        Cosine similarity scores between image pairs.
+    labels : array-like
+        Ground-truth labels (1 = same person, 0 = different persons).
+    threshold : float
+        Similarity threshold for classifying a match.
+
+    Returns
+    -------
+    tuple of floats
+        (accuracy, FMR, FNMR)
+        - accuracy : overall verification accuracy
+        - FMR : False Match Rate
+        - FNMR : False Non-Match Rate
+    """
     similarities = np.array(similarities)
     labels = np.array(labels)
 

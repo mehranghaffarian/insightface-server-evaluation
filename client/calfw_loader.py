@@ -1,6 +1,26 @@
 import os
 
 def load_calfw(dataset_dir, pairs_file):
+    """
+    Loads CALFW dataset verification pairs.
+
+    The pairs file contains two consecutive lines per pair:
+    the first line includes the first image and label (1=same, 0=different),
+    the second line contains the second image filename.
+
+    Parameters
+    ----------
+    dataset_dir : str
+        Folder containing CALFW aligned images.
+    pairs_file : str
+        Text file specifying the verification pairs.
+
+    Returns
+    -------
+    list of tuples
+        List of (image1_path, image2_path, label) where label is
+        1 for same person, 0 for different persons.
+    """
     pairs = []
 
     with open(pairs_file, "r") as f:

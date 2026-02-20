@@ -1,6 +1,5 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, Form, UploadFile, File, HTTPException
 from .schemas import VerifyResponse
-import cv2, numpy as np
 from .model import verify_faces_from_bytes
 
 app = FastAPI()
@@ -9,8 +8,28 @@ app = FastAPI()
 async def verify(
     image1: UploadFile = File(...),
     image2: UploadFile = File(...),
-    model_name: str = "buffalo_l"
+    model_name: str = Form(...)
 ):
+    """
+    Face verification API endpoint.
+
+    Receives two face images and a model name, performs face verification
+    using a preloaded model, and returns a similarity score.
+
+    Parameters
+    ----------
+    image1 : UploadFile
+        First face image.
+    image2 : UploadFile
+        Second face image.
+    model_name : str
+        Name of the face recognition model to use.
+
+    Returns
+    -------
+    VerifyResponse
+        JSON response containing the similarity score.
+    """
     try:
         img1_bytes = await image1.read()
         img2_bytes = await image2.read()
